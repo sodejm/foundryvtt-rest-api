@@ -14,6 +14,17 @@ import { remoteRequest, type RemoteRequestOptions } from "./network/remoteReques
 import { searchIndex, INDEXED_TYPES } from "./utils/searchIndex";
 import { parseFilterString } from "./utils/search";
 
+import { collectionSnapshots } from "./utils/collectionSnapshots";
+
+// Permission, embedded-document and world changes invalidate all live collection snapshots.
+for (const type of ["Actor", "Item", "ActiveEffect", "User", "World", "Folder", "Setting"]) {
+  for (const operation of ["create", "update", "delete"]) {
+    Hooks.on(`${operation}${type}`, () => collectionSnapshots.invalidate());
+  }
+}
+Hooks.on("foundry-rest-api.relayDisconnected", () => collectionSnapshots.invalidate());
+Hooks.on("foundry-rest-api.relayConnected", () => collectionSnapshots.invalidate());
+
 Hooks.once("init", () => {
   console.log(`Initializing ${moduleId}`);
 

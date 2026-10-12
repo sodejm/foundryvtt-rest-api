@@ -2,7 +2,7 @@
   "id": "foundry-rest-api",
   "title": "Foundry REST API",
   "description": "Adds rest endpoint to get data from FoundryVTT",
-  "version": "3.4.1",
+  "version": "3.4.2-mcp.1",
   "authors": [
     {
       "name": "ThreeHats",
@@ -10,8 +10,8 @@
     }
   ],
   "license": "MIT",
-  "url": "https://github.com/ThreeHats/foundryvtt-rest-api",
-  "bugs": "https://github.com/ThreeHats/foundryvtt-rest-api/issues",
+  "url": "https://github.com/sodejm/foundryvtt-rest-api",
+  "bugs": "https://github.com/sodejm/foundryvtt-rest-api/issues",
   "compatibility": {
     "minimum": "12",
     "verified": "14"
