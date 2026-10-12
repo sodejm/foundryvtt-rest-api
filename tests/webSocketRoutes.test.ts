@@ -1,4 +1,3 @@
-import { routers } from '../src/ts/network/routers/all';
 import { WebSocketManager } from '../src/ts/network/webSocketManager';
 
 // Interface for mocked globals
@@ -48,7 +47,8 @@ const mockedGlobals: MockedGlobals = {
 };
 
 // Assign mocked globals
-Object.assign(global, mockedGlobals);
+Object.assign(global, mockedGlobals, { Hooks: { once: jest.fn(), off: jest.fn() } });
+const { routers } = require('../src/ts/network/routers/all') as typeof import('../src/ts/network/routers/all');
 
 describe('WebSocket Routes', () => {
   let mockSocketManager: jest.Mocked<WebSocketManager>;
@@ -64,61 +64,9 @@ describe('WebSocket Routes', () => {
   });
 
   test('all routes exist', () => {
-    const expectedRoutes = [
-      'ping',
-      'pong',
-      'perform-search',
-      'get-entity',
-      'get-structure',
-      'get-contents',
-      'create-entity',
-      'update-entity',
-      'delete-entity',
-      'get-rolls',
-      'get-last-roll',
-      'perform-roll',
-      'get-sheet-html',
-      'get-macros',
-      'execute-macro',
-      'get-encounters',
-      'start-encounter',
-      'encounter-next-turn',
-      'encounter-next-round',
-      'encounter-previous-turn',
-      'encounter-previous-round',
-      'end-encounter',
-      'add-to-encounter',
-      'remove-from-encounter',
-      'kill-entity',
-      'decrease-attribute',
-      'increase-attribute',
-      'give-item',
-      'execute-js',
-      'select-entities',
-      'get-selected-entities',
-      'get-file-system',
-      'upload-file',
-      'download-file',
-      'get-folder',
-      'create-folder',
-      'delete-folder',
-      'get-users',
-      'get-user',
-      'create-user',
-      'update-user',
-      'delete-user'
-    ];
-    
-    console.log('Registered routes:', mockSocketManager.onMessageType.mock.calls.map(call => call[0]));
-    
-    expectedRoutes.forEach((route: string) => {
-      const handler = mockSocketManager.onMessageType.mock.calls.find(call => call[0] === route)?.[1];
-      if (!handler) {
-        console.error(`Handler for ${route} not found`);
-      }
-      expect(handler).toBeDefined();
-    });
-
-    expect(mockSocketManager.onMessageType).toHaveBeenCalledTimes(expectedRoutes.length);
+    const expectedRoutes = ['actors', 'actors-detail', 'items', 'items-detail', 'world', 'ping', 'pong', 'entity', 'create', 'decrease', 'increase', 'update', 'delete', 'kill', 'give', 'remove', 'encounters', 'start-encounter', 'next-turn', 'next-round', 'last-turn', 'last-round', 'end-encounter', 'add-to-encounter', 'remove-from-encounter', 'rolls', 'last-roll', 'roll', 'search', 'structure', 'get-folder', 'create-folder', 'delete-folder', 'contents', 'macros', 'macro-execute', 'execute-js', 'players', 'world-info', 'server-url', 'select', 'selected', 'file-system', 'upload-file', 'download-file', 'get-scene', 'create-scene', 'update-scene', 'delete-scene', 'switch-scene', 'get-canvas-documents', 'create-canvas-document', 'update-canvas-document', 'delete-canvas-document', 'move-token', 'measure-distance', 'chat-messages', 'chat-send', 'chat-delete', 'chat-flush', 'get-status-effects', 'sheet-screenshot', 'interactive-session-start', 'interactive-input', 'interactive-session-end', 'get-playlists', 'playlist-play', 'playlist-stop', 'playlist-next', 'playlist-volume', 'stop-sound', 'play-sound', 'scene-screenshot', 'scene-raw-image', 'get-users', 'get-user', 'create-user', 'update-user', 'delete-user', 'transfer-result', 'remote-response'];
+    const registered = mockSocketManager.onMessageType.mock.calls.map(call => call[0]);
+    expect(registered.sort()).toEqual(expectedRoutes.sort());
+    expect(new Set(registered).size).toBe(registered.length);
   });
 });

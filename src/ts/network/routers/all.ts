@@ -21,7 +21,10 @@ import {router as UserRouter} from "./user"
 import {router as TransferRouter} from "./transfer"
 import {router as RemoteResponseRouter} from "./remoteResponse"
 
+import {router as CollectionRouter} from "./collections"
+
 export const routers: Router[] = [
+    CollectionRouter,
     PingPongRouter,
     EntityRouter,
     EncounterRouter,
