@@ -15,19 +15,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
         with:
-          version: latest
+          version: 12.23.0
 
       - name: Setup node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
-          node-version: 22
+          node-version: 26.13.1
           cache: pnpm
 
       - name: Install dependencies
@@ -35,7 +35,7 @@ jobs:
 
       - name: Extract tag version number
         id: get_version
-        uses: battila7/get-version-action@v2
+        uses: battila7/get-version-action@90eb8fc70f6dfcf3f9b95ed8f164d2c05038e729 # v2.2.1
 
       # Generate release notes with commit links
       - name: Generate Release Notes
@@ -93,7 +93,7 @@ jobs:
 
       - name: Create GitHub Release
         id: create_version_release
-        uses: ncipollo/release-action@v1.16.0
+        uses: ncipollo/release-action@339a81892b84b4eeb0f6e744e4574d79d0d9b8dd # v1.21.0
         with:
           allowUpdates: false
           name: Release ${{ steps.get_version.outputs.version }}
