@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "types": [
-      "@league-of-foundry-developers/foundry-vtt-types/index-lenient",
+      "@league-of-foundry-developers/foundry-vtt-types/lenient",
       "jest"
     ],
     "target": "ESNext",
@@ -11,7 +11,7 @@
       "ESNext",
       "DOM"
     ],
-    "moduleResolution": "Node",
+    "moduleResolution": "Bundler",
     "strict": true,
     "sourceMap": true,
     "resolveJsonModule": true,
